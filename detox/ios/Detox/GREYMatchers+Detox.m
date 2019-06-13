@@ -14,7 +14,7 @@
 
 + (id<GREYMatcher>)detoxMatcherForText:(NSString *)text
 {
-	Class RCTTextViewClass = NSClassFromString(@"RCTText") ?: NSClassFromString(@"RCTTextView");
+	Class RCTTextViewClass = NSClassFromString(@"ABI33_0_0RCTText") ?: NSClassFromString(@"ABI33_0_0RCTTextView");
     if (!RCTTextViewClass)
     {
         return grey_text(text);
@@ -38,7 +38,7 @@
 	}
 	else
 	{
-		Class RCTTextViewClass = NSClassFromString(@"RCTText") ?: NSClassFromString(@"RCTTextView");
+		Class RCTTextViewClass = NSClassFromString(@"ABI33_0_0RCTText") ?: NSClassFromString(@"ABI33_0_0RCTTextView");
 		return grey_allOf(grey_accessibilityLabel(label),
 						  grey_not(grey_descendant(grey_allOf(grey_kindOfClass(RCTTextViewClass),
 															  grey_accessibilityLabel(label),
@@ -83,7 +83,7 @@ id<GREYMatcher> detox_grey_parent(id<GREYMatcher> ancestorMatcher)
 + (id<GREYMatcher>)detoxMatcherForScrollChildOfMatcher:(id<GREYMatcher>)matcher
 {
 	//No RN—Life is always good.
-	Class RN_RCTScrollView = NSClassFromString(@"RCTScrollView");
+	Class RN_RCTScrollView = NSClassFromString(@"ABI33_0_0RCTScrollView");
 	if (!RN_RCTScrollView)
 	{
 		return matcher;
@@ -106,7 +106,7 @@ id<GREYMatcher> detox_grey_parent(id<GREYMatcher> ancestorMatcher)
 + (id<GREYMatcher>)detoxMatcherAvoidingProblematicReactNativeElements:(id<GREYMatcher>)matcher
 {
 	//No RN—Life is always good.
-	Class RN_RCTScrollView = NSClassFromString(@"RCTScrollView");
+	Class RN_RCTScrollView = NSClassFromString(@"ABI33_0_0RCTScrollView");
 	if (!RN_RCTScrollView)
 	{
 		return matcher;

@@ -32,7 +32,7 @@ static void __dtx_loadBundleAtURL_onProgress_onComplete(id self, SEL _cmd, NSURL
 
 + (void)load
 {
-	Class cls = NSClassFromString(@"RCTJavaScriptLoader");
+	Class cls = NSClassFromString(@"ABI33_0_0RCTJavaScriptLoader");
 	if(cls == nil)
 	{
 		return;

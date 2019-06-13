@@ -12,7 +12,7 @@
 @implementation WXAnimatedDisplayLinkIdlingResource {
 }
 
-static NSString * const _RCTNativeAnimatedModuleClass = @"RCTNativeAnimatedModule";
+static NSString * const _RCTNativeAnimatedModuleClass = @"ABI33_0_0RCTNativeAnimatedModule";
 static NSString * const _nodesManagerDisplayLinkPath = @"_nodesManager._displayLink";
 
 + (BOOL)isAvailable
@@ -41,7 +41,7 @@ static NSString * const _nodesManagerDisplayLinkPath = @"_nodesManager._displayL
 
 - (BOOL)isIdleNow
 {
-	id bridgeClass = NSClassFromString(@"RCTBridge");
+	id bridgeClass = NSClassFromString(@"ABI33_0_0RCTBridge");
 	SEL currentBridgeSelector = @selector(currentBridge);
 	if(! [bridgeClass respondsToSelector:currentBridgeSelector]) return YES;
 	

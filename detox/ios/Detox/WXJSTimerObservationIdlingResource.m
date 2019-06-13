@@ -111,7 +111,7 @@ DTX_CREATE_LOG(WXJSTimerObservationIdlingResource)
 		
 		__weak __typeof(self) weakSelf = self;
 		
-		Class cls = NSClassFromString(@"RCTTiming");
+		Class cls = NSClassFromString(@"ABI33_0_0RCTTiming");
 		SEL createTimerSel = NSSelectorFromString(@"createTimer:duration:jsSchedulingTime:repeats:");
 		Method m = class_getInstanceMethod(cls, createTimerSel);
 		

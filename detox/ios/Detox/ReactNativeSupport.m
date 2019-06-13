@@ -25,7 +25,7 @@
 
 DTX_CREATE_LOG(ReactNativeSupport);
 
-static NSString *const RCTReloadNotification = @"RCTReloadNotification";
+static NSString *const RCTReloadNotification = @"ABI33_0_0RCTReloadNotification";
 
 static dispatch_queue_t __currentIdlingResourceSerialQueue;
 
@@ -106,7 +106,7 @@ dispatch_queue_t wx_dispatch_queue_create(const char *_Nullable label, dispatch_
 static int (*__detox_run_orig)(id self, SEL _cmd);
 static int __detox_run(id self, SEL _cmd)
 {
-	Class cls = NSClassFromString(@"RCTJSCExecutor");
+	Class cls = NSClassFromString(@"ABI33_0_0RCTJSCExecutor");
 	Method m = NULL;
 	if(cls != NULL)
 	{
@@ -117,7 +117,7 @@ static int __detox_run(id self, SEL _cmd)
 	else
 	{
 		//Modern RN
-		cls = NSClassFromString(@"RCTCxxBridge");
+		cls = NSClassFromString(@"ABI33_0_0RCTCxxBridge");
 		m = class_getClassMethod(cls, NSSelectorFromString(@"runRunLoop"));
 		if(m == NULL)
 		{
@@ -159,7 +159,7 @@ static void __setupRNSupport()
 	
 	__currentIdlingResourceSerialQueue = dispatch_queue_create("__currentIdlingResourceSerialQueue", NULL);
 
-	Class cls = NSClassFromString(@"RCTModuleData");
+	Class cls = NSClassFromString(@"ABI33_0_0RCTModuleData");
 	if(cls == nil)
 	{
 		return;
@@ -193,7 +193,7 @@ static void __setupRNSupport()
 	}));
 	
 	//Cannot just extern this function - we are not linked with RN, so linker will fail. Instead, look for symbol in runtime.
-	dispatch_queue_t (*RCTGetUIManagerQueue)(void) = dlsym(RTLD_DEFAULT, "RCTGetUIManagerQueue");
+	dispatch_queue_t (*RCTGetUIManagerQueue)(void) = dlsym(RTLD_DEFAULT, "ABI33_0_0RCTGetUIManagerQueue");
 	
 	//Must be performed in +load and not in +setUp in order to correctly catch the ui queue, runloop and display link initialization by RN.
 	dispatch_queue_t queue = RCTGetUIManagerQueue();
@@ -201,7 +201,7 @@ static void __setupRNSupport()
 	
 	dtx_log_info(@"Adding idling resource for RCTUIManagerQueue");
 	
-	[[GREYUIThreadExecutor sharedInstance] registerIdlingResource:[GREYDispatchQueueIdlingResource resourceWithDispatchQueue:queue name:@"RCTUIManagerQueue"]];
+	[[GREYUIThreadExecutor sharedInstance] registerIdlingResource:[GREYDispatchQueueIdlingResource resourceWithDispatchQueue:queue name:@"ABI33_0_0RCTUIManagerQueue"]];
 
 	m = class_getInstanceMethod(UIApplication.class, NSSelectorFromString(@"_run"));
 	__detox_run_orig = (void*)method_getImplementation(m);
@@ -226,12 +226,12 @@ static void __setupRNSupport()
 
 + (BOOL) isReactNativeApp
 {
-    return (NSClassFromString(@"RCTBridge") != nil);
+    return (NSClassFromString(@"ABI33_0_0RCTBridge") != nil);
 }
 
 + (void)reloadApp
 {
-	if(NSClassFromString(@"RCTBridge") == nil)
+	if(NSClassFromString(@"ABI33_0_0RCTBridge") == nil)
 	{
 		//Not RN app - noop.
 		return;
@@ -248,7 +248,7 @@ static void __setupRNSupport()
 		[__observedQueues removeAllObjects];
 	});
 	
-	id<RN_RCTBridge> bridge = [NSClassFromString(@"RCTBridge") valueForKey:@"currentBridge"];
+	id<RN_RCTBridge> bridge = [NSClassFromString(@"ABI33_0_0RCTBridge") valueForKey:@"currentBridge"];
 	
 	SEL reqRelSel = NSSelectorFromString(@"requestReload");
 	if([bridge respondsToSelector:reqRelSel])
@@ -269,7 +269,7 @@ static void __setupRNSupport()
 {
 	__block __weak id observer;
 	
-	observer = [[NSNotificationCenter defaultCenter] addObserverForName:@"RCTJavaScriptDidLoadNotification" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+	observer = [[NSNotificationCenter defaultCenter] addObserverForName:@"ABI33_0_0RCTJavaScriptDidLoadNotification" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
 		if(handler)
 		{
 			handler();
